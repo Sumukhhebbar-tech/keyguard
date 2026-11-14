@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% block title %}Company sign-in{% endblock %}{% block content %}
+<div class="login-grid">
+<section class="login-story">
+<div class="story-copy"><p class="tag"><span class="live-dot"></span> KEY LIFECYCLE SIMULATOR</p><h1>What happens when a key is stolen?</h1><p>Encrypt a file, simulate a compromise, and watch key rotation change what an attacker can decrypt.</p></div>
+<svg class="circuit" viewBox="0 0 620 300" fill="none" aria-hidden="true">
+<defs><radialGradient id="glow"><stop stop-color="#7261ee" stop-opacity=".43"/><stop offset="1" stop-color="#7261ee" stop-opacity="0"/></radialGradient><linearGradient id="wire" x2="620" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#6155c2" stop-opacity=".2"/><stop offset=".5" stop-color="#b4a7ff"/><stop offset="1" stop-color="#6155c2" stop-opacity=".2"/></linearGradient></defs>
+<ellipse cx="310" cy="157" rx="260" ry="145" fill="url(#glow)"/>
+<g stroke="#8b7eff" opacity=".25"><circle cx="310" cy="150" r="116"/><circle cx="310" cy="150" r="99"/><circle cx="310" cy="150" r="81" stroke-dasharray="3 6"/><path d="M10 150h600M310 9v282"/></g>
+<g stroke="url(#wire)" stroke-width="1.5"><path d="M20 109h112l41 41h66m142 0h64l42-41h113M57 223h104l32-33h47m140 0h44l35 33h106"/><path d="M105 65h73l29 31h45m118 0h43l29-31h70"/></g>
+<g fill="#b9adff"><circle cx="132" cy="109" r="4"/><circle cx="487" cy="109" r="4"/><circle cx="161" cy="223" r="4"/><circle cx="459" cy="223" r="4"/><circle cx="178" cy="65" r="3"/><circle cx="442" cy="65" r="3"/></g>
+<rect x="248" y="88" width="124" height="124" rx="28" fill="#231e55" stroke="#9b8bff" stroke-width="1.5"/><rect x="257" y="97" width="106" height="106" rx="22" stroke="#6658bf"/>
+<path d="M310 118l30 12v20c0 17-12 27-30 36-18-9-30-19-30-36v-20l30-12Z" stroke="#dcd4ff" stroke-width="3"/><path d="m298 152 8 8 16-16" stroke="#a995ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+<div class="story-legend"><span>01 · ENCRYPT</span><span>02 · COMPROMISE</span><span>03 · RECOVER</span></div>
+</section>
+<div class="login-side"><section class="login-card"><p class="tag">COMPANY WORKSPACE</p><h2>Sign in to KeyGuard</h2><p>Use your company domain and enrolled email.</p>
+<form class="stack" method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><label>Company domain<input required name="domain" placeholder="north.example" autocomplete="organization"></label><label>Work email<input required type="email" name="email" autocomplete="username" placeholder="alice@north.example"></label><label>Password<input required type="password" name="password" autocomplete="current-password" placeholder="Enter your password"></label><button>Enter workspace <span aria-hidden="true">→</span></button></form>
+<details class="demo"><summary>View demo accounts</summary><p>Use the part after @ as the company domain.</p><p><strong>Employees</strong><br><code>alice@north.example</code><br><code>ben@north.example</code><br><code>cara@south.example</code><br>Password: <code>Employee@123</code></p><p><strong>Platform admin</strong><br><code>admin@platform.example</code><br>Password: <code>Admin@123</code></p></details></section>
+<p class="login-foot"><span class="live-dot"></span> Local teaching environment <span>·</span> AES-256-GCM</p></div></div>
+{% endblock %}

@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<section class="panel"><p class="tag">REQUEST / {{ code }}</p><h1>{{ {400:'Invalid request',403:'Access denied',404:'Not found',409:'Action unavailable',413:'File too large'}[code] }}</h1><a href="{{ url_for('login') }}">Return to workspace</a></section>{% endblock %}
