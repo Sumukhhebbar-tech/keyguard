@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{% block title %}KeyGuard{% endblock %} · KeyGuard</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+{% set page=request.endpoint %}
+{% set home=page=='login' and not g.user %}
+<body class="{{ 'entry' if home else 'workspace' }}">
+{% macro brand() %}<a class="brand" href="{{ url_for('login') }}"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 2.7 20 6v5.6c0 4.6-3.1 7.4-8 9.7-4.9-2.3-8-5.1-8-9.7V6l8-3.3Z"/><path d="m8.7 12 2.2 2.2 4.5-4.5"/></svg></span><span>KeyGuard<small>CRYPTOGRAPHY LAB</small></span></a>{% endmacro %}
+{% if not home %}
+<a class="skip" href="#main">Skip to content</a>
+<aside class="rail">{{ brand() }}
+<nav aria-label="Workspace navigation"><span class="rail-label">WORKSPACE</span>
+{% if g.user %}<a {{ 'aria-current=page' if page==g.user.role else '' }} href="{{ url_for(g.user.role) }}">▦ <span>{{ 'Key operations' if g.user.role=='admin' else 'My encrypted files' }}</span></a>{% else %}<a href="{{ url_for('login') }}">↗ <span>Company sign-in</span></a>{% endif %}
+<a {{ 'aria-current=page' if page=='lab' else '' }} href="{{ url_for('lab') }}">◇ <span>Incident Lab</span></a>
+</nav>
+<div class="rail-bottom"><span class="live-dot"></span> Local teaching environment</div>
+</aside>
+<div class="shell"><header class="topbar"><span class="crumb">KeyGuard <span>/</span> {{ 'Incident Lab' if page=='lab' else ('Platform console' if g.user and g.user.role=='admin' else 'Employee workspace') }}</span>
+{% if g.user %}<div class="account"><div class="avatar" aria-hidden="true">{{ g.user.email[0]|upper }}</div><span class="identity">{{ g.user.email }}</span><form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="secondary">Sign out</button></form></div>{% endif %}
+</header>
+{% endif %}
+<main id="main" class="{{ 'entry-main' if home else 'content' }}">{% if home %}<header class="entry-bar">{{ brand() }}<a href="{{ url_for('lab') }}">Open Incident Lab <span aria-hidden="true">↗</span></a></header>{% endif %}
+{% for category,message in get_flashed_messages(with_categories=true) %}<p class="notice {{ category }}" role="status">{{ message }}</p>{% endfor %}
+{% if page in ('admin','employee') %}<div class="notice" id="incident-notice" data-url="{{ url_for('incident_notice') }}" {% if not incident_notice %}hidden{% endif %}><strong>Key lifecycle notification</strong><p role="status" id="incident-message">{{ incident_notice }}</p><a href="{{ url_for(page) }}">Refresh workspace status</a></div><script defer src="{{ url_for('static',filename='notices.js') }}"></script>{% endif %}
+{% block content %}{% endblock %}</main>
+{% if not home %}<footer class="footer"><span>KeyGuard · Cryptography project</span><span>AES-256-GCM</span></footer></div>{% endif %}
+</body></html>
